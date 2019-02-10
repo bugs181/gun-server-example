@@ -1,0 +1,14 @@
+{
+  "name": "gun-server-example",
+  "version": "1.0.0",
+  "description": "An example of running a Gun server (superpeer) and connecting a client (peer) to it.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Levi Roberts",
+  "license": "MIT",
+  "dependencies": {
+    "gun": "^0.9.9999991"
+  }
+}
