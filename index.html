@@ -1,10 +1,59 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
   <head>
-    <script src="gun.js"></script>
+    <title>Gun Chat Example</title>
+    <meta charset="utf-8" />
+
+    <style>
+      input {
+        color: inherit;
+        font-size: inherit;
+        text-align: left;
+      }
+    </style>
+
+    <script type="text/javascript" src="gun.js"></script>
     <script>
-      var gun = new Gun('http://localhost:8765/gun')
+      const gun = Gun('http://localhost:8765/gun')
     </script>
   </head>
+
   <body>
+    <h1>Example: </h1>
+    <br>
+
+    User: <input type="text" id="user" value="Guest" /> <br>
+    Message: <input type="text" id="message" /><button onclick="sendChat()">Submit</button><br>
+
+    <br>
+    Chat messages will go here: <br>
+
+    <ul id="chat">
+    </ul>
+
+    <script>
+      // Listen for any new chat messages
+      gun.get('chat').map().once(function(data) {
+        if (!data.message)
+          return
+
+        let chatList = document.getElementById('chat')
+        let listItem = document.createElement("LI")
+        let textItem = document.createTextNode(data.user + ': ' + data.message)
+
+        listItem.appendChild(textItem)
+        chatList.appendChild(listItem)
+      })
+
+      // Send a new chat. (Triggered from input onclick)
+      function sendChat() {
+        let username = document.getElementById('user').value
+        let newMessage = document.getElementById('message').value
+        gun.get('chat').set({ user: username, message: newMessage })
+
+        document.getElementById('message').value = ''
+      }
+    </script>
   </body>
 </html>
