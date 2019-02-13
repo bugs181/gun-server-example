@@ -15,7 +15,8 @@
 
     <script type="text/javascript" src="gun.js"></script>
     <script>
-      const gun = Gun('http://localhost:8765/gun')
+      const host = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port
+      const gun = Gun(host + '/gun')
     </script>
   </head>
 

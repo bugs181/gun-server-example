@@ -9,9 +9,10 @@ let config = {
 if (process.env.HTTPS_KEY) {
   config.key = fs.readFileSync(process.env.HTTPS_KEY)
   config.cert = fs.readFileSync(process.env.HTTPS_CERT)
-  config.server = require('https').createServer(config, Gun.serve(__dirname))
+  config.server = require('https').createServer(config, Gun.serve(__dirname + '/web'))
 } else {
-  config.server = require('http').createServer(Gun.serve(__dirname))
+  console.log(__dirname)
+  config.server = require('http').createServer(Gun.serve(__dirname + '/web'))
 }
 
 const gun = new Gun({
